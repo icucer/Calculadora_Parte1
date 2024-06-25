@@ -1,40 +1,47 @@
 package cl.praxis.test;
 
 import cl.praxis.calculadora.Calculadora;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
 
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
+@DisplayName("Prueba TDD Clase Calculadora")
 public class CalculadoraTest {
+
     private Calculadora calculadora;
 
-    @Before
-    public void setUp() {
+    @BeforeEach
+    void setUp() {
         calculadora = new Calculadora();
     }
 
     @Test
-    public void testSuma() {
-        Assert.assertEquals(5, calculadora.suma(2, 3));
+    void testSuma() {
+        assertEquals(5, calculadora.suma(2, 3));
     }
 
     @Test
-    public void testResta() {
-        Assert.assertEquals(1, calculadora.resta(3, 2));
+    void testResta() {
+        assertEquals(1, calculadora.resta(3, 2));
     }
 
     @Test
-    public void testMultiplicar() {
-        Assert.assertEquals(6, calculadora.multiplicacion(2, 3));
+    void testMultiplicar() {
+        assertEquals(6, calculadora.multiplicacion(2, 3));
     }
 
     @Test
-    public void testDividir() {
-        Assert.assertEquals(2, calculadora.division(6, 3));
+    void testDividir() {
+        assertEquals(2, calculadora.division(6, 3));
     }
 
-    @Test(expected = IllegalArgumentException.class)
-    public void testDividirPorCero() {
-        calculadora.division(1, 0);
+    @Test
+    @DisplayName("Division by zero should throw IllegalArgumentException")
+    void testDividirPorCero() {
+        assertThrows(IllegalArgumentException.class, () -> calculadora.division(1, 0), "Cannot divide by zero.");
     }
 }
